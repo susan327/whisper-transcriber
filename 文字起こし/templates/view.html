@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>変換結果の表示</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 2em;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .result-box {
+            white-space: pre-wrap;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 1.5em;
+            margin-top: 1em;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        button {
+            margin-top: 1em;
+            padding: 0.6em 1.2em;
+            font-size: 1em;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        .copy-success {
+            color: green;
+            margin-left: 1em;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .info {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📖 文字起こし結果</h2>
+        <div class="info">
+            <p>🕒 {{ item.timestamp }}<br>
+            🎧 {{ item.original_name }}<br>
+            🧠 モデル：{{ item.model }}</p>
+        </div>
+        <div class="result-box" id="text-content">{{ item.text }}</div>
+        <button onclick="copyText()">📋 コピーする</button>
+        <span id="copy-success" class="copy-success">コピーしました！</span>
+        <br><br>
+        <a href="/"><button>🔙 トップに戻る</button></a>
+    </div>
+
+    <script>
+        function copyText() {
+            const text = document.getElementById("text-content").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const success = document.getElementById("copy-success");
+                success.style.display = "inline";
+                setTimeout(() => {
+                    success.style.display = "none";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
