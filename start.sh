@@ -1,2 +1,2 @@
 #!/bin/bash
-python app.py
+python 文字起こし/app.py
